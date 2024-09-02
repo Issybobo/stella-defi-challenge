@@ -149,16 +149,9 @@ try {
     throw new Error(`Error withdrawing from Liquidity Pool: ${error.message}`);
 }
 
-// ... existing code ...
 
-// ... existing code ...
 
-// Function to send a payment from one account to another with retry mechanism
-// ... existing code ...
-
-// Function to create a new account
-
-// ... existing code ...
+// Function to send a payment from one account to another with retry mechanism incase it failed based on network congestion
 
 
 async function sendPayment(sourceKeypair, destinationAddress, amount, retries = 3) {
@@ -191,7 +184,7 @@ async function sendPayment(sourceKeypair, destinationAddress, amount, retries = 
     }
 }
 
-// Function to create a new account with retry mechanism
+// Function to create a new account with retry mechanism incase it failed based on network congestion
 async function createAccount(sourceKeypair, newAccountPublicKey, startingBalance, retries = 3) {
     try {
         const sourceAccount = await server.getAccount(sourceKeypair.publicKey());
@@ -237,75 +230,3 @@ console.log("New Account Public Key:", newAccountKeypair.publicKey());
 })();
 
 
-// ... existing code ...
-
-// ... existing code ...
-// ... existing code ...
-
-// ... existing code ...
-
-// ... existing code ...
-
-// Function to send a payment from one account to another
-{/*async function sendPayment(sourceKeypair, destinationAddress, amount) {
-    try {
-        const sourceAccount = await server.getAccount(sourceKeypair.publicKey());
-        const transaction = new TransactionBuilder(sourceAccount, {
-            fee: BASE_FEE,
-            networkPassphrase: Networks.TESTNET
-        })
-            .addOperation(Operation.payment({
-                destination: destinationAddress,
-                asset: Asset.native(),
-                amount: amount
-            }))
-            .setTimeout(30)
-            .build();
-        transaction.sign(sourceKeypair);
-        const result = await server.sendTransaction(transaction);
-        console.log(`Payment of ${amount} XLM sent to ${destinationAddress}. Transaction URL:`,
-            `https://stellar.expert/explorer/testnet/tx/${result.hash}`);
-            
-    } catch (error) {
-        console.error(`Error sending payment to ${destinationAddress}:`, error);
-        throw new Error(`Error sending payment to ${destinationAddress}: ${error.message}`);
-    }
-}
-
-// Automatically send payment from stellarKeypair to traderKeypair
-try {
-    await sendPayment(stellarKeypair, traderKeypair.publicKey(), '10');
-} catch (error) {
-    console.error(`Error sending automatic payment: ${error}`);
-}
-
-// Function to create a new account
-async function createAccount(sourceKeypair, newAccountPublicKey, startingBalance) {
-    try {
-        const sourceAccount = await server.getAccount(sourceKeypair.publicKey());
-        const transaction = new TransactionBuilder(sourceAccount, {
-            fee: BASE_FEE,
-            networkPassphrase: Networks.TESTNET
-        })
-            .addOperation(Operation.createAccount({
-                destination: newAccountPublicKey,
-                startingBalance: startingBalance
-            }))
-            .setTimeout(30)
-            .build();
-        transaction.sign(sourceKeypair);
-        const result = await server.sendTransaction(transaction);
-        console.log(`Account created. Transaction URL: https://stellar.expert/explorer/testnet/tx/${result.hash}`);
-    } catch (error) {
-        console.error(`Error creating account: ${error}`);
-    }
-}
-
-const newAccountKeypair = Keypair.random();
-console.log("New Account Public Key:", newAccountKeypair.publicKey());
-
-try {
-    await createAccount(stellarKeypair, newAccountKeypair.publicKey(), '100');
-} catch (error) {
-    console.error(`Error creating new account: ${error}`);
-}*/}
